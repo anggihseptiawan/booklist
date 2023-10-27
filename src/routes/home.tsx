@@ -3,6 +3,7 @@ import { Books } from "../types/book"
 import useSWR from "swr"
 import { booksFetcher } from "../utils/booksFetcher"
 import { useEffect, useState } from "react"
+import { useRatingStore } from "../utils/store"
 
 export default function Home() {
   const [books, setBooks] = useState<Books>()
@@ -10,6 +11,7 @@ export default function Home() {
     "/api/books",
     booksFetcher
   )
+  const ratings = useRatingStore((state) => state.ratings)
   const [searchParams, setSearchParams] = useSearchParams({ q: "" })
   const query = searchParams.get("q")
 
@@ -28,6 +30,17 @@ export default function Home() {
   }
 
   useEffect(() => {
+    if (!data) return
+    for (let i = 0; i < data.items.length; i++) {
+      const rating = ratings.find(
+        (rating) => rating.bookId === data.items[i].id
+      )
+
+      // Attach rating by the User to the data from API
+      // It's not ideal and not gonna look like this in the real case, it is just to simulate add rating feature
+      // Sync the rating that the User already gives to the data
+      data.items[i].rating = rating?.value || 0
+    }
     setBooks(data)
   }, [data])
 
@@ -39,20 +52,23 @@ export default function Home() {
     if (!books) return
 
     if (value === "date") {
-      const sorted = [...data.items].sort(
+      const sortedByDate = [...data.items].sort(
         (a, b) =>
           new Date(b.volumeInfo.publishedDate).getTime() -
           new Date(a.volumeInfo.publishedDate).getTime()
       )
-      setBooks({ ...books, items: sorted })
+      return setBooks({ ...books, items: sortedByDate })
     }
 
     if (value === "title") {
-      const sorted = [...data.items].sort((a, b) =>
+      const sortedByTitle = [...data.items].sort((a, b) =>
         a.volumeInfo.title < b.volumeInfo.title ? -1 : 1
       )
-      setBooks({ ...books, items: sorted })
+      return setBooks({ ...books, items: sortedByTitle })
     }
+
+    const sortedByRating = [...data.items].sort((a, b) => b.rating - a.rating)
+    setBooks({ ...books, items: sortedByRating })
   }
 
   if (isLoading) return <p>Loading!!</p>
@@ -107,6 +123,10 @@ export default function Home() {
               <small className="block truncate-text mb-2">
                 {book.volumeInfo.description}
               </small>
+
+              <small className="font-semibold mr-1">Rating: </small>
+              <small>{book.rating}</small>
+              <br />
               <small className="font-semibold mr-1">Release: </small>
               <small>{book.volumeInfo.publishedDate}</small>
             </div>

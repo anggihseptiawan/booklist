@@ -2,6 +2,7 @@ import { Link, useLocation, useParams } from "react-router-dom"
 import { Book } from "../types/book"
 import { useRatingStore } from "../utils/store"
 import { useEffect, useState } from "react"
+import toast, { Toaster } from "react-hot-toast"
 
 export default function Book() {
   const { state }: { state: Book } = useLocation()
@@ -18,10 +19,13 @@ export default function Book() {
     const payload = { bookId: state.id, value }
 
     if (ratingIndex >= 0) {
-      const updatedRatings = [...ratings].splice(ratingIndex, 1, payload)
+      const updatedRatings = [...ratings]
+      updatedRatings.splice(ratingIndex, 1, payload)
       setRatings(updatedRatings)
+      toast.success("Rating updated successfully")
     } else {
       setRatings(payload)
+      toast.success("Rating added successfully")
     }
   }
 
@@ -69,10 +73,6 @@ export default function Book() {
             <span className="font-semibold mr-1">Page:</span>
             <span>{state.volumeInfo.pageCount}</span>
           </p>
-          <p>
-            <span className="font-semibold mr-1">Rating:</span>
-            <span>-</span>
-          </p>
           <p className="mb-3">
             <span className="font-semibold mr-1">Language:</span>
             <span>{state.volumeInfo.language}</span>
@@ -103,6 +103,8 @@ export default function Book() {
           </div>
         </div>
       </div>
+
+      <Toaster />
     </div>
   )
 }

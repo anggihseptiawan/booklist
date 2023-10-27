@@ -23,4 +23,5 @@ export interface Book {
       isAvailable: boolean
     }
   }
+  rating: number
 }
