@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  transition: background-color 1s;
+}
+
+html[class="dark"] {
+  @apply bg-slate-900 text-white;
+}
+
+html[class="dark"] img[alt*="-icon"] {
+  filter: invert(1);
+}
+
 .truncate-text {
   overflow: hidden;
   text-overflow: ellipsis;

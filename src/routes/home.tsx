@@ -80,16 +80,16 @@ export default function Home() {
     setBooks({ ...books, items: books.items.concat(result.items) })
   }
 
-  if (isLoading || !books) return <p>Loading!!</p>
+  if (isLoading || !books) return <p>Loading...</p>
 
   return (
-    <div className="container max-w-6xl mx-auto py-6">
-      <div className="flex justify-between mb-6">
+    <div className="container max-w-6xl mx-auto">
+      <div className="flex gap-4 mb-6">
         <div className="flex items-center gap-2">
           <label htmlFor="search">Search</label>
           <input
             type="text"
-            className="py-1 px-2 rounded-md border border-slate-500"
+            className="py-[2px] px-2 rounded-sm border border-slate-500 bg-transparent"
             id="search"
             onChange={(e) =>
               setSearchParams(
@@ -106,7 +106,7 @@ export default function Home() {
           <label htmlFor="sort">Sort</label>
           <select
             id="sort"
-            className="rounded-sm p-1 border border-slate-500"
+            className="rounded-sm p-1 border border-slate-500 bg-transparent"
             onChange={(e) => sort(e.target.value)}
           >
             <option value="title">Title</option>
