@@ -123,7 +123,10 @@ export default function Home() {
           {books.items.map((book) => (
             <div key={Math.random()} className="flex basis-[350px] gap-2 mb-3">
               <img
-                src={book.volumeInfo.imageLinks?.smallThumbnail}
+                src={book.volumeInfo.imageLinks?.smallThumbnail?.replace(
+                  "http",
+                  "https"
+                )}
                 className="w-20 object-contain flex-none"
                 alt={book.volumeInfo.title.substring(0, 50)}
               />
