@@ -38,9 +38,9 @@ export default function Home() {
         (rating) => rating.bookId === data.items[i].id
       )
 
-      // Attach rating by the User to the data from API
+      // Add rating field to the `data` from API
       // It's not ideal and not gonna look like this in the real case, it is just to simulate add rating feature
-      // Sync the rating that the User already gives to the data
+      // Sync the rating that the User already gives to the `data`
       data.items[i].rating = rating?.value || 0
     }
     setBooks(data)
