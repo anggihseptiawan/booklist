@@ -4,6 +4,7 @@
 
 html {
   transition: background-color 1s;
+  overflow-x: hidden;
 }
 
 html[class="dark"] {
@@ -22,16 +23,3 @@ html[class="dark"] img[alt*="-icon"] {
   line-clamp: 2;
   -webkit-box-orient: vertical;
 }
-
-/* @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-} */

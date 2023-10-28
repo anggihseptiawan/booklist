@@ -84,7 +84,7 @@ export default function Home() {
 
   return (
     <div className="container max-w-6xl mx-auto">
-      <div className="flex gap-4 mb-6">
+      <div className="flex flex-wrap gap-4 mb-6">
         <div className="flex items-center gap-2">
           <label htmlFor="search">Search</label>
           <input
@@ -124,7 +124,7 @@ export default function Home() {
           loader={<h4 className="block">Loading...</h4>}
         >
           {books.items.map((book) => (
-            <div key={book.id} className="flex basis-[350px] gap-2 mb-3">
+            <div key={Math.random()} className="flex basis-[350px] gap-2 mb-3">
               <img
                 src={book.volumeInfo.imageLinks?.smallThumbnail}
                 className="w-20 object-contain flex-none"

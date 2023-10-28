@@ -43,8 +43,8 @@ export default function Book() {
         <img src="/chevron-right.svg" className="h-4" alt="chevron-icon" />
         <span>Book Detail</span>
       </div>
-      <div className="flex gap-4">
-        <div className="w-1/4">
+      <div className="flex flex-col sm:flex-row gap-4">
+        <div className="sm:w-1/4">
           <img
             src={
               state.volumeInfo.imageLinks.thumbnail ??
@@ -54,7 +54,7 @@ export default function Book() {
             alt={state.volumeInfo.title}
           />
         </div>
-        <div className="w-3/4">
+        <div className="sm:w-3/4">
           <p className="font-bold text-2xl mb-3">{state.volumeInfo.title}</p>
           <p className="mb-2">{state.volumeInfo.description}</p>
           <p>
