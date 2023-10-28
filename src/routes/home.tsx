@@ -50,9 +50,9 @@ export default function Home() {
     searchBooks()
   }, [query])
 
-  const sort = (value: string) => {
-    if (!books) return
+  if (isLoading || !books) return <p>Loading...</p>
 
+  const sort = (value: string) => {
     if (value === "date") {
       const sortedByDate = [...data.items].sort(
         (a, b) =>
@@ -74,13 +74,10 @@ export default function Home() {
   }
 
   const fetchMoreData = async () => {
-    if (!books) return
     const result = await booksFetcher(activePage + 30)
     setActivePage(activePage + 30)
     setBooks({ ...books, items: books.items.concat(result.items) })
   }
-
-  if (isLoading || !books) return <p>Loading...</p>
 
   return (
     <div className="container max-w-6xl mx-auto">
